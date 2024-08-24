@@ -81,6 +81,9 @@ A disciplina será dividida em módulos, iremos trabalhar com pequenos blocos em
 
 ## Aulas
 
+#### Sempre que baixar um projeto utilize o comando
+``` composer install ```
+
 ### Aula 03 - 23/08/2024
 - routes/web.php
   - Entendimento de rotas, o que é, como funcionam
