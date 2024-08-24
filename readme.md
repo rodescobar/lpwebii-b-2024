@@ -78,3 +78,26 @@ A disciplina será dividida em módulos, iremos trabalhar com pequenos blocos em
 
 ## Outros materiais
 [Drive](https://drive.google.com/drive/folders/1UGSLJfwW-U2OIks-HUKDeGNACRsldsyA?usp=sharing)
+
+## Aulas
+
+### Aula 03 - 23/08/2024
+- routes/web.php
+  - Entendimento de rotas, o que é, como funcionam
+- resources/views
+  - Entendimento de Views e como funcionam
+
+- Trabalhando com templates
+  - Área do SITE (Lenche)
+    - resources/views/layout
+    - resources/views/produtos
+    - resources/views/principal
+    - public/css
+    - public/js
+    - public/images
+  - Área Administrativa
+    - resources/views/admin_layout
+    - resources/views/admin/principal
+    - public/admin (tudo)
+
+Conteúdo em aula_template
