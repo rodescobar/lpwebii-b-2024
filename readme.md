@@ -87,6 +87,8 @@ A disciplina será dividida em módulos, iremos trabalhar com pequenos blocos em
 ### Aula 03 - 23/08/2024
 - routes/web.php
   - Entendimento de rotas, o que é, como funcionam
+  https://laravel.com/docs/11.x/structure#the-routes-directory
+
 - resources/views
   - Entendimento de Views e como funcionam
 
@@ -102,5 +104,22 @@ A disciplina será dividida em módulos, iremos trabalhar com pequenos blocos em
     - resources/views/admin_layout
     - resources/views/admin/principal
     - public/admin (tudo)
+https://laravel.com/docs/11.x/blade#extending-a-layout
 
 Conteúdo em aula_template
+
+## Aula 04 - 30/08/2024
+- Authorization
+https://laravel.com/docs/11.x/starter-kits
+
+- Migration
+https://laravel.com/docs/11.x/migrations#main-content
+
+- Seed
+https://laravel.com/docs/11.x/seeding#running-seeders
+
+- Model
+https://laravel.com/docs/11.x/eloquent#table-names
+
+- Controller
+https://laravel.com/docs/11.x/controllers#main-content
