@@ -123,3 +123,7 @@ https://laravel.com/docs/11.x/eloquent#table-names
 
 - Controller
 https://laravel.com/docs/11.x/controllers#main-content
+
+
+## Aula 05 - 06/09/2024
+- Continuação Aula 04

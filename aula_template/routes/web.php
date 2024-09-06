@@ -1,20 +1,17 @@
 <?php
 
-use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 
-/*
-php artisan migrate:fresh
-
-*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin_layo');
 });
 
-Route::get('/produtos', [ProdutosController::class, 'index']);
-Route::get('/produtos/criar', [ProdutosController::class, 'novo']);
-
+Route::get(
+    '/categoria', 
+    [CategoriaController::class, 'index'] 
+)->name("categoria");
 
 
 
