@@ -8,12 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
-
-    protected $table = 'categoria';
-
-    public function produtos() 
-    {
-        //Traz todos os produtos vinculados a categoria
-        return $this->hasMany(Produto::class);
-    }
+    protected $table = "categoria";
 }

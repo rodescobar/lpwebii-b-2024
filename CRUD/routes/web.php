@@ -1,31 +1,14 @@
 <?php
 
-use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
 
-
-Route::get('/', function () {
-    return view('admin_layo');
+Route::get("/", function() {
+    return view("admin_template.index");
 });
 
-Route::get(
-    '/categoria', 
-    [CategoriaController::class, 'index'] 
-)->name("categoria");
+Route::get("/categoria", [ CategoriaController::class, "index" ] );
 
-
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get("/produto", function() {
+    return view("produto.index");
 });
-
-require __DIR__.'/auth.php';

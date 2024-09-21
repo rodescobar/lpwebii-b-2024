@@ -1,0 +1,33 @@
+PROJETO CRUD
+	- Categoria
+	- Produto
+
+Configurações
+	- Banco de Dados
+		config/database.php
+
+
+
+Criação do CRUD
+	- Migration / Model
+	php artisan make:migration 
+		create_categoria_table
+
+	php artisan make:model Categoria
+
+	- Route
+	- Controller
+		- Inserir, Alterar, Update, Delete
+	php artisan make:controller CategoriaController
+	- View
+
+
+
+
+
+ROTA -> CONTROLLER -> VIEW
+rota -> view
+
+
+
+	

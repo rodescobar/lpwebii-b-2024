@@ -136,3 +136,6 @@ https://laravel.com/docs/11.x/controllers#main-content
   - Você deverá criar os 5 links do menu ao lado esquerdo
   - Você deverá utilizar o conceito de template
   - Você deverá utilizar o template deste [link](https://github.com/startbootstrap/startbootstrap-sb-admin-2)
+
+  ## Aula 08 - 20/09/2024
+  - CRUD

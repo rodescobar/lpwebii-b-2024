@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categoria', function (Blueprint $table) {
-            $table->id();
+            $table->id(); //INTEIRO - PRIMARY KEY - AUTOINC;
             $table->string("cat_nome");
+            $table->string("cat_descricao")->nullable();
+            $table->boolean("cat_ativo")->default(1);
             $table->timestamps();
         });
     }
