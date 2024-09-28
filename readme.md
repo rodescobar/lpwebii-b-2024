@@ -138,4 +138,12 @@ https://laravel.com/docs/11.x/controllers#main-content
   - Você deverá utilizar o template deste [link](https://github.com/startbootstrap/startbootstrap-sb-admin-2)
 
   ## Aula 08 - 20/09/2024
-  - CRUD
+  - Inicio do CRUD Categoria
+  - Adição de Template
+  - revisão de Models/Migrations/Controller/Views
+
+  ## Aula 09 - 27/09/2024
+  - Finalização do CURD Categoria
+      - Novo
+      - Alterar
+      - Excluir (logicamente)
