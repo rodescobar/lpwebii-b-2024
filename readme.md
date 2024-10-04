@@ -147,3 +147,22 @@ https://laravel.com/docs/11.x/controllers#main-content
       - Novo
       - Alterar
       - Excluir (logicamente)
+
+## Aula 10 - 04/10/2024
+- Utilizando o seu projeto crie o primeiro CRUD para uma tabela.
+- Lembrando:
+  - Criação de migration (caso você ainda não possua o bando de dados) 
+  
+  ``php artisan create:migration create_<NOME_TABELA>_table`` 
+
+  - Criação de model
+
+  ``php artisan create:model <NOME_DA_TABELA>``
+
+  - Criação do controller
+
+  ``php artisan create:controller <NOME_DA_TABELA>Controller``
+
+  - Criação das views
+
+  ``php artisan create:view <NOME_DA_VIEW>``
