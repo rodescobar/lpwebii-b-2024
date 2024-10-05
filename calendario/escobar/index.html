@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário do Jogador e da Loja</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Inventário do Jogador</h4>
+                <div id="player-inventory" class="inventory player-inventory"></div>
+                <div id="selected-player-item" class="selected-item"></div>
+            </div>
+            <div class="col-md-2 text-center">
+                <h4>Ações</h4>
+                <div class="action-buttons">
+                    <button id="buy-sell" class="action-button" draggable="true">Comprar/Vender</button>
+                    <button id="use" class="action-button" draggable="true">Usar</button>
+                    <button id="discard" class="action-button" draggable="true">Jogar Fora</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h4>Inventário da Loja</h4>
+                <div id="shop-inventory" class="inventory shop-inventory"></div>
+                <div id="selected-shop-item" class="selected-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quantityModalLabel">Digite a quantidade desejada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="number" id="item-quantity" class="form-control" placeholder="Quantidade" min="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="confirm-quantity" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
