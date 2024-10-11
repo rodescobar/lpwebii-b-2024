@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário do Jogador e da Loja</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .inventory {
+            border: 2px solid #343a40;
+            border-radius: 5px;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .item {
+            border: 1px solid rgba(255, 255, 255, 0.3);;
+            border-radius: 5px;
+            padding: 5px;
+            width: 80px;
+            height: 100px;
+            /* Aumentado para caber o texto */
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            cursor: grab;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .item img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .item-name {
+            font-size: 12px;
+            /* Tamanho da fonte do nome */
+            white-space: nowrap;
+            /* Impede quebra de linha */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Exibe "..." se o texto for muito longo */
+        }
+
+        .selected-item {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            margin: 0 10px;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilizando a barra de rolagem para torná-la invisível */
+        .inventory::-webkit-scrollbar {
+            width: 8px;
+            /* Largura da barra de rolagem */
+        }
+
+        .inventory::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.7);
+            /* Fundo da área da barra de rolagem */
+        }
+
+        .inventory::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            /* Cor da barra de rolagem */
+            border-radius: 10px;
+            /* Bordas arredondadas */
+        }
+
+        .inventory::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+            /* Cor da barra de rolagem ao passar o mouse */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Inventário do Jogador</h4>
+                <div id="player-inventory" class="inventory"></div>
+                <div id="selected-player-item" class="selected-item"></div>
+            </div>
+            <div class="col-md-2 text-center">
+                <h4>Ações</h4>
+                <div class="action-buttons">
+                    <button id="buy-sell" class="action-button" draggable="true">Comprar/Vender</button>
+                    <button id="use" class="action-button" draggable="true">Usar</button>
+                    <button id="discard" class="action-button" draggable="true">Jogar Fora</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h4>Inventário da Loja</h4>
+                <div id="shop-inventory" class="inventory"></div>
+                <div id="selected-shop-item" class="selected-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quantityModalLabel">Digite a quantidade desejada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="number" id="item-quantity" class="form-control" placeholder="Quantidade" min="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="confirm-quantity" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const playerInventory = {
+            "itens": [
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "imagem": "leite.png" },
+                { "id": "lacnhe", "quantiadde": 5, "peso": 1, "nome": "Big Mac", "tipo": "comida", "imagem": "bigmac.png" },
+                { "id": "porta_carro", "quantiadde": 1, "peso": 10, "nome": "Porta", "tipo": "peca", "imagem": "porta_rx7.png" }
+            ]
+        };
+
+        const shopInventory = {
+            "itens": [
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "leite de com toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "lacnhe", "quantiadde": 5, "peso": 1, "nome": "Big Mac", "tipo": "comida", "preco": 15, "imagem": "bigmac.png" }
+            ]
+        };
+
+        let draggedItem = null;
+        let actionType = '';
+
+        function renderInventory(inventory, elementId, selectedElementId) {
+            const inventoryElement = document.getElementById(elementId);
+            const selectedElement = document.getElementById(selectedElementId);
+            inventoryElement.innerHTML = '';
+            selectedElement.innerHTML = ''; // Limpa o nome selecionado
+
+            inventory.itens.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.draggable = true;
+                itemDiv.innerHTML = `
+                <img src="${item.imagem}" alt="${item.id}">
+                <div class="item-name">${item.id}</div>
+                <p>${item.quantiadde}</p>
+            `;
+                itemDiv.addEventListener('dragstart', () => {
+                    draggedItem = item;
+                    selectedElement.innerHTML = item.nome; // Exibe o nome do item selecionado
+                });
+                inventoryElement.appendChild(itemDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderInventory(playerInventory, 'player-inventory', 'selected-player-item');
+            renderInventory(shopInventory, 'shop-inventory', 'selected-shop-item');
+
+            // Event listeners for action buttons
+            document.querySelectorAll('.action-button').forEach(button => {
+                button.addEventListener('dragover', (e) => e.preventDefault());
+                button.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    actionType = button.id; // Set action type based on button ID
+                    $('#quantityModal').modal('show');
+                });
+            });
+
+            document.getElementById('confirm-quantity').addEventListener('click', () => {
+                const quantity = document.getElementById('item-quantity').value;
+                if (quantity && draggedItem) {
+                    if (actionType === "buy-sell") {
+                        console.log(`Vendeu ${quantity} do item: ${draggedItem.id}`);
+                    } else if (actionType === "use") {
+                        console.log(`Usou ${quantity} do item: ${draggedItem.id}`);
+                    } else if (actionType === "discard") {
+                        console.log(`Jogou fora ${quantity} do item: ${draggedItem.id}`);
+                    }
+                    $('#quantityModal').modal('hide');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

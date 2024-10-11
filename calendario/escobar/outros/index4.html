@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário do Jogador e da Loja</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .inventory {
+            border: 2px solid #343a40;
+            border-radius: 10px;
+            height: 400px;
+            overflow-y: auto;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-inventory {
+            background: url('mochila.png') no-repeat center center;
+            background-size: cover;
+            padding: 100px; /* Padding para simular que o inventário está dentro da mochila */
+            height: 400px; /* Altura do inventário */
+            overflow-y: auto; /* Rola para ver os itens */
+            position: relative; /* Para que o item interno seja posicionado corretamente */
+        }
+
+        .shop-inventory {
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .item {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 5px;
+            width: 80px;
+            height: 100px;
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            cursor: grab;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .item:hover {
+            transform: scale(1.05);
+        }
+
+        .item img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .item-name {
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .selected-item {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            margin: 0 10px;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+
+        .inventory::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .inventory::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .inventory::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .inventory::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Inventário do Jogador</h4>
+                <div id="player-inventory" class="inventory player-inventory"></div>
+                <div id="selected-player-item" class="selected-item"></div>
+            </div>
+            <div class="col-md-2 text-center">
+                <h4>Ações</h4>
+                <div class="action-buttons">
+                    <button id="buy-sell" class="action-button" draggable="true">Comprar/Vender</button>
+                    <button id="use" class="action-button" draggable="true">Usar</button>
+                    <button id="discard" class="action-button" draggable="true">Jogar Fora</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h4>Inventário da Loja</h4>
+                <div id="shop-inventory" class="inventory shop-inventory"></div>
+                <div id="selected-shop-item" class="selected-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quantityModalLabel">Digite a quantidade desejada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="number" id="item-quantity" class="form-control" placeholder="Quantidade" min="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="confirm-quantity" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const playerInventory = {
+            "itens": [
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "Leite de Com Toddy", "tipo": "bebida", "imagem": "leite.png" },
+                { "id": "big_mac", "quantiadde": 5, "peso": 1, "nome": "Big Mac", "tipo": "comida", "imagem": "bigmac.png" },
+                { "id": "porta_carro", "quantiadde": 1, "peso": 10, "nome": "Porta", "tipo": "peca", "imagem": "porta_rx7.png" }
+            ]
+        };
+
+        const shopInventory = {
+            "itens": [
+                { "id": "leite", "quantiadde": 10, "peso": 1, "nome": "Leite de Com Toddy", "tipo": "bebida", "preco": 10, "imagem": "leite.png" },
+                { "id": "big_mac", "quantiadde": 5, "peso": 1, "nome": "Big Mac", "tipo": "comida", "preco": 15, "imagem": "bigmac.png" }
+                // Adicione mais itens se necessário
+            ]
+        };
+
+        let draggedItem = null;
+        let actionType = '';
+
+        function renderInventory(inventory, elementId, selectedElementId) {
+            const inventoryElement = document.getElementById(elementId);
+            const selectedElement = document.getElementById(selectedElementId);
+            inventoryElement.innerHTML = '';
+            selectedElement.innerHTML = ''; // Limpa o nome selecionado
+
+            inventory.itens.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.draggable = true;
+                itemDiv.innerHTML = `
+                    <img src="${item.imagem}" alt="${item.id}">
+                    <div class="item-name">${item.nome}</div>
+                    <p>${item.quantiadde}</p>
+                `;
+                itemDiv.addEventListener('dragstart', () => {
+                    draggedItem = item;
+                    selectedElement.innerHTML = item.nome; // Mostra o nome do item selecionado
+                });
+                inventoryElement.appendChild(itemDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderInventory(playerInventory, 'player-inventory', 'selected-player-item');
+            renderInventory(shopInventory, 'shop-inventory', 'selected-shop-item');
+
+            document.querySelectorAll('.action-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    actionType = button.id; // Captura o tipo de ação
+                    $('#quantityModal').modal('show'); // Mostra o modal
+                });
+            });
+
+            document.getElementById('confirm-quantity').addEventListener('click', () => {
+                const quantity = document.getElementById('item-quantity').value;
+                if (quantity) {
+                    handleAction(actionType, quantity);
+                    $('#quantityModal').modal('hide');
+                }
+            });
+        });
+
+        function handleAction(action, quantity) {
+            if (action === 'buy-sell') {
+                console.log(`Comprado/Vendido: ${draggedItem.nome} - Quantidade: ${quantity}`);
+            } else if (action === 'use') {
+                console.log(`Usado: ${draggedItem.nome} - Quantidade: ${quantity}`);
+            } else if (action === 'discard') {
+                console.log(`Descartado: ${draggedItem.nome} - Quantidade: ${quantity}`);
+            }
+        }
+    </script>
+</body>
+
+</html>

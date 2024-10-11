@@ -1,0 +1,53 @@
+{
+    "personagem": {
+        "itens": [
+            { 
+                "id": "leite",
+                "quantiadde": 10,
+                "peso": 1,
+                "nome": "leite de com toddy",
+                "tipo": "bebida",
+                "imagem": "leite.png"
+            },
+            { 
+                "id": "lacnhe",
+                "quantiadde": 5,
+                "peso": 1,
+                "nome": "Big Mac",
+                "tipo": "comida",
+                "imagem": "bigmac.png"
+            },
+            { 
+                "id": "porta_carro",
+                "quantiadde": 1,
+                "peso": 10,
+                "nome": "Porta",
+                "tipo": "peca",
+                "imagem": "porta_rx7.png"
+            }
+
+        ]
+    },
+    "outro": {
+        "itens": [
+            { 
+                "id": "leite",
+                "quantiadde": 10,
+                "peso": 1,
+                "nome": "leite de com toddy",
+                "tipo": "bebida",
+                "preco": 10,
+                "imagem": "leite.png"
+            },
+            { 
+                "id": "lacnhe",
+                "quantiadde": 5,
+                "peso": 1,
+                "nome": "Big Mac",
+                "tipo": "comida",
+                "preco": 15,
+                "imagem": "bigmac.png"
+            }            
+        ]
+    }
+}

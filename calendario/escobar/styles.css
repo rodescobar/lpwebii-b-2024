@@ -1,0 +1,106 @@
+body {
+    background-color: #212529; /* Cor de fundo da página */
+    color: white; /* Cor do texto padrão */
+}
+
+.inventory {
+    border: 2px solid #343a40;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: auto;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Para posicionamento do fundo */
+}
+
+.player-inventory {
+    background: url('mochila.png') no-repeat center center;
+    background-size: cover;
+    padding: 100px; /* Para dar a impressão de estar dentro da mochila */
+}
+
+.shop-inventory {
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.item {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    width: 80px;
+    height: 100px;
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+    cursor: grab;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.item:hover {
+    transform: scale(1.05);
+}
+
+.item img {
+    width: 40px;
+    height: 40px;
+}
+
+.item-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-item {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.action-buttons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    margin: 0 10px;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.inventory::-webkit-scrollbar {
+    width: 8px;
+}
+
+.inventory::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.inventory::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.inventory::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

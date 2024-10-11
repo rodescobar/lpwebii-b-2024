@@ -1,0 +1,144 @@
+body {
+    background: transparent;
+    color: #343a40;
+    margin: 0;
+    height: 100vh; /* 100% da altura da janela */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 80%; /* Largura da tela, 80% da largura */
+    max-width: 1200px; /* Largura máxima */
+}
+
+.inventory {
+    border: 2px solid #343a40;
+    background-color: #212529;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: auto;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex: 1; /* Permite que cresça proporcionalmente */
+}
+
+.player-inventory {
+    background: url('mochila.png') no-repeat center center;
+    background-size: cover;
+    padding: 10px; /* Para simular que o inventário está dentro da mochila */
+    height: 100%; /* Altera a altura para ocupar o máximo */
+    overflow-y: auto;
+    position: relative;
+}
+
+.shop-inventory {
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    height: 100%; /* Para ocupar toda a altura disponível */
+}
+
+.item {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    width: 80px;
+    height: 100px;
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+    cursor: grab;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.item:hover {
+    transform: scale(1.05);
+}
+
+.item img {
+    width: 40px;
+    height: 40px;
+}
+
+.item-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-item {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.action-buttons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    margin: 0 10px;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.inventory::-webkit-scrollbar {
+    width: 8px;
+}
+
+.inventory::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.inventory::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.inventory::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Media query para telas menores que 1024x768 */
+@media (max-width: 1024px) {
+    body {
+        display: block;
+        height: auto; /* Para permitir rolagem em telas menores */
+    }
+
+    .container {
+        flex-direction: column; /* Altera a direção para coluna em telas menores */
+        width: 100%; /* Largura total */
+    }
+
+    .inventory {
+        height: 300px; /* Altura reduzida para telas menores */
+    }
+
+    .player-inventory {
+        padding: 50px; /* Padding reduzido */
+    }
+}
