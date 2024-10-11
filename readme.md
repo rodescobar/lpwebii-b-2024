@@ -166,3 +166,7 @@ https://laravel.com/docs/11.x/controllers#main-content
   - Criação das views
 
   ``php artisan create:view <NOME_DA_VIEW>``
+
+  ## Aula 11 - 11/10/2024
+  - Criação do CRUD de produtos, com relacionamento entre tabelas
+  [MATERIAL](Aula11)
