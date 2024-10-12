@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProdutoController;
 
 Route::get("/", function() {
     return view("admin_template.index");
@@ -22,3 +23,8 @@ Route::get("/categoria/exc/{id}",
     [ CategoriaController::class, 'ExcluirCategoria']
 )->name('cat_excluir');
 
+
+Route::get("/produto", [ProdutoController::class, 'index'] )->name('produto_idex');
+
+Route::post("/produto", 
+    [ProdutoController::class, 'SalvarNovoProduto'] )->name('produto_novo');
