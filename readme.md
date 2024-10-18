@@ -169,9 +169,11 @@ https://laravel.com/docs/11.x/controllers#main-content
 
   ## Aula 11 - 11/10/2024
   - Criação do CRUD de produtos, com relacionamento entre tabelas
+
   [MATERIAL](Aula11)
 
   ## Aula 12 - 18/10/2024
   - Autenticação de usuários
   - Rotas seguras (acesso somente de usuários que fizeram login)
+  
   [MATERIAL](Aula12)
