@@ -124,6 +124,15 @@ Formulário de Login
     <button type="submit">Login</button>
 </form>
 ```
-### 6. Autenticação Manual
+### 6. Adicionando rotas seguras
+As rotas seguras devem ficar dentro do middleware de validação de usuário
 
-Se o login for bem-sucedido, a função Auth::attempt($credentials) será utilizada para autenticar automaticamente o usuário. Se necessário, também é possível autenticar um usuário manualmente usando Auth::login($user).
+```php
+Route::middleware('auth')->group(function () {
+    Route::get('/login', function () {
+        return view("admin.login");
+    })->name('login');
+
+    Route::get('/categoria', [Categoria::class, 'index'])->name('categoria');
+});
+```
