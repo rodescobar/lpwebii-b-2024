@@ -76,6 +76,10 @@ A disciplina será dividida em módulos, iremos trabalhar com pequenos blocos em
 ## Calendário
 ![Calendário](calendario/tabela.png)
 
+### Observações
+- Entrega do dia 20/09/2024 foi cancelada os pontos serão redistribuídos após apresentação final.
+- Entrega do dia 18/10/2024 alterada para ser feita juntamente com a entrega do dia 25/10/2024
+
 ## Outros materiais
 [Drive](https://drive.google.com/drive/folders/1UGSLJfwW-U2OIks-HUKDeGNACRsldsyA?usp=sharing)
 
