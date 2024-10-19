@@ -33,5 +33,13 @@ Route::get('/registrar', function() {
     return view("admin_template.registrar");
 });
 
-Route::post('/registrar', [AuthController::class, 'registrar']);
 Route::post('/login', [AuthController::class, 'login']);
+
+// Rotas para administradores
+Route::middleware('adminAuth')->group(function () {
+    echo "ola";
+    exit;
+    Route::post('/registrar', [AuthController::class, 'registrar']);
+    Route::post('/registrar', [AuthController::class, 'registrar']);
+    // suas rotas de administradores aqui
+});
