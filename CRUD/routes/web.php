@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\AuthController;
 
 Route::middleware('auth')->group(function () {
-    Route::get("/categoria", [ CategoriaController::class, "index" ] );
+    Route::get("/categoria", [ CategoriaController::class, "index" ] )->name('categoria');
     Route::post("/categoria", [ CategoriaController::class, "SalvarNovaCategoria" ]);
 
     Route::get("/categoria/upd/{id}", 
@@ -23,3 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::post("/produto", 
         [ProdutoController::class, 'SalvarNovoProduto'] )->name('produto_novo');
 });
+
+Route::get('/login', function() {
+    return view("admin_template.login");
+})->name('login');
+
+Route::get('/registrar', function() {
+    return view("admin_template.registrar");
+});
+
+Route::post('/registrar', [AuthController::class, 'registrar']);
+Route::post('/login', [AuthController::class, 'login']);
