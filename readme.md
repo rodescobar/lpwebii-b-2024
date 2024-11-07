@@ -181,3 +181,20 @@ https://laravel.com/docs/11.x/controllers#main-content
   - Rotas seguras (acesso somente de usuários que fizeram login)
   
   [MATERIAL](Aula12)
+
+
+  # IMPORTANTE
+- Avaliação:
+  - 22/11/2024:.
+    - Avaliação bimestral REGIMENTAL e escrita.
+		- Conteúdo:
+
+    - **Para alunos que fizeram o trabalho:** perguntas relacionadas sobre o trabalho, poderá ser utilizado o GIT para consulta ao seu trabalho.
+    - **Para alunos que não entregaram o trabalho:** perguntas e código sobre LARAVEL. Individual, sem consulta, sem internet, com uso do PC da ITE.
+
+  - 06/12/2024: Avaliação substitutiva
+    - Para alunos que não entregaram o trabalho ou não fizeram a avaliação regimental.
+		- Conteúdo:
+			- Laravel.
+			- Individual, sem consulta, sem internet, com uso do PC da ITE.
+
